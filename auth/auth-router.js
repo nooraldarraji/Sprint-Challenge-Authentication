@@ -25,8 +25,9 @@ router.post('/login', (req, res) => {
   .first()
   .then(user => {
     if (user && bcrypt.compareSync(password, user.password)) {
+      const token = generateToken(user)
       res
-        .json({ message: "User has been inside the data base"})
+        .json({ token: token})
     } else {
       res
         .status(401)
