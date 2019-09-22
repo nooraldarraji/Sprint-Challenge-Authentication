@@ -1,10 +1,12 @@
 const router = require('express').Router();
 const Users = require('../users/users-model.js')
 const generateToken = require('../auth/jsw.js')
+const bcrypt = require('bcrypt')
 
 router.post('/register', (req, res) => {
   // implement registration
   let { username, password } = req.body
+  console.log(req.body)
   const hashedPassword = bcrypt.hashSync(password, 8)
   Users.add({ username, password: hashedPassword})
   .then(saved => {
@@ -14,7 +16,7 @@ router.post('/register', (req, res) => {
   })
   .catch(()=> {
     res
-    .status(401)
+    .status(500)
     .json({ message: "ERROR: User has not been created!" })
   })
 });
