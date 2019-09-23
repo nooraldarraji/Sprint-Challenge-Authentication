@@ -7,31 +7,31 @@ module.exports = {
     findById
 }
 
-function find () {
+function find() {
     return db('users')
-    .select(
-        'id',
-        'name',
-        'password'
-          )
+        .select(
+            'id',
+            'name',
+            'password'
+        )
 }
 
-function findBy (filter) {
+function findBy(filter) {
     return db('users')
-    .where(filter)
+        .where(filter)
 }
 
-function findById (id) {
+function findById(id) {
     return db('users')
-    .where({ id })
-    .firsr()
+        .where({ id })
+        .first()
 }
 
-function add (user) {
+function add(user) {
     return db('users')
-    .insert(user, "id")
-    .then(ids => {
-        const id = ids
-        return findById(id)
-    })
+        .insert(user, "id")
+        .then(ids => {
+            const id = ids
+            return findById(id)
+        })
 }
